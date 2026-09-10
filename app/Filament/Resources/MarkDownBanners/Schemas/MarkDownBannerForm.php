@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Filament\Resources\MarkDownBanners\Schemas;
+
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Schema;
+
+class MarkDownBannerForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->required(),
+                TextInput::make('link')
+                    ->default(null),
+                Toggle::make('is_active')
+                    ->required(),
+                Select::make('orientation')
+                    ->options([
+                        'horizontal' => 'Horizontal',
+                        'vertical' => 'Vertical',
+                    ])
+                    ->default('horizontal')
+                    ->required(),
+                TextInput::make('sort_order')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+            ]);
+    }
+}
