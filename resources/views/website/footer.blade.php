@@ -438,7 +438,7 @@ if(el){
         <i class="fa-solid fa-house"></i>
         <span>Home</span>
     </a>
-    <a href="{{ url('/product') }}" class="nav-item text-center">
+    <a href="#" class="nav-item text-center" data-bs-toggle="offcanvas" data-bs-target="#mobileCategoryOffcanvas" aria-controls="mobileCategoryOffcanvas">
         <i class="fa-solid fa-list"></i>
         <span>Category</span>
     </a>
@@ -452,6 +452,25 @@ if(el){
         <i class="fa-regular fa-user"></i>
         <span>Profile</span>
     </a>
+</div>
+
+<!-- Mobile Category Offcanvas -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="mobileCategoryOffcanvas" aria-labelledby="mobileCategoryOffcanvasLabel" style="height: auto; max-height: 80vh; border-top-left-radius: 15px; border-top-right-radius: 15px; z-index: 99999;">
+  <div class="offcanvas-header" style="border-bottom: 1px solid #eee; padding: 15px 20px;">
+    <h5 class="offcanvas-title fw-bold" id="mobileCategoryOffcanvasLabel" style="font-size: 16px;">Shop by Category</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body" style="padding: 0;">
+    <div class="list-group list-group-flush">
+      <a href="{{ url('/men') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">MEN</a>
+      <a href="{{ url('/woman') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">WOMAN</a>
+      <a href="{{ url('/kids') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">KIDS</a>
+      <a href="{{ url('/accessories') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">ACCESSORIES</a>
+      <a href="{{ url('/plus-size') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">PLUS SIZE</a>
+      <a href="{{ url('/mobile-covers') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">MOBILE COVERS</a>
+      <a href="{{ url('/wallets') }}" class="list-group-item list-group-item-action fw-bold" style="padding: 15px 20px; font-size: 14px; color: #333; border: none; border-bottom: 1px solid #f5f5f5;">WALLETS</a>
+    </div>
+  </div>
 </div>
 
 </body>
