@@ -100,7 +100,7 @@
                             <span class="offer_price_number" style="font-weight: bold;">₹<?php echo e(round($item['price'])); ?></span>
                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                     </p>
-                    <button class="btn btn-outline-dark w-100 remove-from-wishlist mt-2" data-product-id="<?php echo e($item['product_id']); ?>" style="font-size: 12px; font-weight: bold; border-radius: 4px;">REMOVE FROM WISHLIST</button>
+                    <button class="btn btn-outline-dark w-100 remove-from-wishlist mt-2" data-product-id="<?php echo e($item['product_id']); ?>" style="font-size: 12px; font-weight: bold; border-radius: 4px; padding: 6px 0;">REMOVE</button>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                btnElement.innerText = 'REMOVE FROM WISHLIST';
+                btnElement.innerText = 'REMOVE';
                 btnElement.disabled = false;
             });
         });

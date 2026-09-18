@@ -305,10 +305,14 @@
             </ul>
         </div>
         <div class="menu-section" style="box-shadow: 0 4px 4px 0 #dce9ea;">
-            <div class="menu-bar">
+            <div class="menu-bar horizontal-scroll">
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $globalCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                    <a href="<?php echo e(url($cat->slug)); ?>"
-                        class="<?php echo e(request()->is($cat->slug) || request()->is($cat->slug . '/*') ? 'active ' : ''); ?>mb-2"><?php echo e(strtoupper($cat->name)); ?></a>
+                    <?php
+                        $targetUrl = strtolower($cat->name) === 'juniors' ? url('/kids') : url($cat->slug);
+                        $isActive = request()->is($cat->slug) || request()->is($cat->slug . '/*') || (strtolower($cat->name) === 'juniors' && (request()->is('kids') || request()->is('kids/*')));
+                    ?>
+                    <a href="<?php echo e($targetUrl); ?>"
+                        class="<?php echo e($isActive ? 'active ' : ''); ?>"><?php echo e(strtoupper($cat->name)); ?></a>
                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
             </div>
         </div>
@@ -1296,65 +1300,39 @@
                                     class="fa fa-angle-down"></i></span>
                         </span>
                         <div class="slide_inner_menu">
-                            <ul>
-                                <li class="dr">
-                                    <span class="sl_lnk_flex">
-                                        <span>Shop By Gender</span> <span class="dwn_sl_icon"><i
-                                                class="fa fa-angle-down"></i></span>
-                                    </span>
-                                    <div class="slide_inner_menu_sub mt-2">
-                                        <div data-v-49698cd6="" class="sub-category-list">
-                                            <div data-v-49698cd6="" class="cat-icon-continer"><a data-v-49698cd6=""
-                                                    href="/kidswear-boys" class="sub-cat-icon sub-cat-large-icon">
-                                                    <div data-v-49698cd6="" class="icon-wrapper"><!----> <img
-                                                            data-v-49698cd6=""
-                                                            data-src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/Marvel-Avengers-Assemble_X3UteF8.jpg"
-                                                            alt="Boys"
-                                                            class="gm-added gm-loaded gm-observing gm-observing-cb"
-                                                            src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/Marvel-Avengers-Assemble_X3UteF8.jpg?w=768&amp;dpr=1">
-                                                    </div>
-                                                    <div data-v-49698cd6="" class="sub-cat-name"><span
-                                                            data-v-49698cd6="">Boys</span></div>
-                                                </a></div>
-                                            <div data-v-49698cd6="" class="cat-icon-continer"><a data-v-49698cd6=""
-                                                    href="/kidswear-girls" class="sub-cat-icon sub-cat-large-icon">
-                                                    <div data-v-49698cd6="" class="icon-wrapper"><!----> <img
-                                                            data-v-49698cd6=""
-                                                            data-src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/TSS-Originals-Pure-Magic_m86M2LH.jpg"
-                                                            alt="Girls"
-                                                            class="gm-added gm-loaded gm-observing gm-observing-cb"
-                                                            src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/TSS-Originals-Pure-Magic_m86M2LH.jpg?w=768&amp;dpr=1">
-                                                    </div>
-                                                    <div data-v-49698cd6="" class="sub-cat-name"><span
-                                                            data-v-49698cd6="">Girls</span></div>
-                                                </a></div>
+                            <div data-v-49698cd6="" class="sub-category-list p-2">
+                                <div data-v-49698cd6="" class="cat-icon-continer"><a data-v-49698cd6=""
+                                        href="/kidswear-boys" class="sub-cat-icon sub-cat-large-icon">
+                                        <div data-v-49698cd6="" class="icon-wrapper"><!----> <img
+                                                data-v-49698cd6=""
+                                                data-src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/Marvel-Avengers-Assemble_X3UteF8.jpg"
+                                                alt="Boys"
+                                                class="gm-added gm-loaded gm-observing gm-observing-cb"
+                                                src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/Marvel-Avengers-Assemble_X3UteF8.jpg?w=768&amp;dpr=1">
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                        <div data-v-49698cd6="" class="sub-cat-name"><span
+                                                data-v-49698cd6="">Boys</span></div>
+                                    </a></div>
+                                <div data-v-49698cd6="" class="cat-icon-continer"><a data-v-49698cd6=""
+                                        href="/kidswear-girls" class="sub-cat-icon sub-cat-large-icon">
+                                        <div data-v-49698cd6="" class="icon-wrapper"><!----> <img
+                                                data-v-49698cd6=""
+                                                data-src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/TSS-Originals-Pure-Magic_m86M2LH.jpg"
+                                                alt="Girls"
+                                                class="gm-added gm-loaded gm-observing gm-observing-cb"
+                                                src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/side_menu_image/TSS-Originals-Pure-Magic_m86M2LH.jpg?w=768&amp;dpr=1">
+                                        </div>
+                                        <div data-v-49698cd6="" class="sub-cat-name"><span
+                                                data-v-49698cd6="">Girls</span></div>
+                                    </a></div>
+                            </div>
+                        </div>
                     </li>
                     <li><a href="#" class="link_title">Markdowns</a></li>
                     <li><a href="#" class="link_title" style="color:#df0606!important;">MY MEMBERSHIP</a></li>
                     <li><a href="#" class="link_title">Stores Near Me</a></li>
                     <li><a href="#" class="link_title">Track My Order?</a></li>
-                    <li class="dr">
-                        <span class="sl_lnk_flex">
-                            <span class="link_title">More</span> <span class="dwn_sl_icon"><i
-                                    class="fa fa-angle-down"></i></span>
-                        </span>
-                        <div class="slide_inner_menu">
-                            <ul>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Community Initiatives</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">T&C</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">FAQ's</a></li>
-
-                            </ul>
-                    </li>
+                    <li><a href="<?php echo e(route('blog')); ?>" class="link_title">Blog</a></li>
                 </ul>
             </div>
         </div>
@@ -1370,7 +1348,8 @@
             <section class="header-strip d-none d-lg-block">
                 <div class="row-style">
                     <div class="col-md-12 text-end">
-                        <a href="#" class="strip-text">Contact Us</a>
+                        <a href="<?php echo e(route('contact')); ?>" class="strip-text">Contact Us</a>
+                        <a href="<?php echo e(route('faq')); ?>" class="strip-text">FAQ</a>
                         <a href="<?php echo e(route('track.order')); ?>" class="strip-text">Track Order</a>
                         <a href="#" class="strip-text">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
@@ -1390,7 +1369,8 @@
             <section class="header-strip d-block d-lg-none">
                 <div class="flex items-center justify-between px-1">
                     <div>
-                        <a href="#" class="strip-text">Contact Us</a>
+                        <a href="<?php echo e(route('contact')); ?>" class="strip-text">Contact Us</a>
+                        <a href="<?php echo e(route('faq')); ?>" class="strip-text">FAQ</a>
                         <a href="<?php echo e(route('track.order')); ?>" class="strip-text">Track Order</a>
                     </div>
                     <div>
@@ -1414,6 +1394,11 @@
                     class="header-nav d-flex d-none d-lg-flex font align-items-center justify-content-between flex-nowrap w-100 mt-10">
                     <div class="d-flex align-items-center gap-40 flex-grow-1">
                         <div class="header-nav-middle d-flex align-items-center">
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!request()->is('/')): ?>
+                            <div class="menu_sliding_icon me-3 d-lg-block" style="cursor: pointer;">
+                                <img class="img-size" src="<?php echo e(asset('images/burger-list-menu.svg')); ?>" alt="" style="width: 24px;">
+                            </div>
+                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             <?php
                                 $validGenders = ['men', 'woman', 'kids'];
                                 $segment = request()->segment(1);
@@ -1443,7 +1428,7 @@
                             </div>
                         </div>
 
-                        <div class="logo">
+                        <div class="logo d-flex align-items-center">
                             <a href="<?php echo e(url('/')); ?>"><span class="logo-font">DE LUNEH</span></a>
                         </div>
 
@@ -1501,6 +1486,11 @@
 
                                     </a>
                                 </div>
+                                <div class="profile-cart-icon profile-section-container ms-2">
+                                    <a href="<?php echo e(route('profile')); ?>">
+                                        <img src="<?php echo e(asset('images/user.svg')); ?>" width="24" alt="Profile">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1513,8 +1503,7 @@
                         </div>
                         <a href="<?php echo e(url('/')); ?>"><span class="logo-font">DE LUNEH</span></a>
                     </div>
-                    <div class="header-nav d-flex d-block d-lg-none font align-items-center justify-content-between mt-10"
-                        id="product-none">
+                    <div class="header-nav d-flex d-lg-none font align-items-center justify-content-between">
                         <!-- <div class="logo">
                         <div class="menu_sliding_icon">
                             <img class="img-size" src="<?php echo e(asset('images/burger-list-menu.svg')); ?>" alt="">
@@ -1585,7 +1574,7 @@
                                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                                     </a>
                                 </div>
-                                <div class=" profile-cart-icon">
+                                <div class=" profile-cart-icon d-none">
                                     <a href="/wishlist">
                                         <img src="/images/wishlist1.svg" width="18" alt="">
                                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session('wishlist') && count(session('wishlist')) > 0): ?>
@@ -1601,6 +1590,11 @@
                                             <span class="badge-count" style="background-color: #e02b2b;"><?php echo e(count(session('cart'))); ?></span>
                                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
+                                    </a>
+                                </div>
+                                <div class="profile-cart-icon profile-section-container ms-2 d-none">
+                                    <a href="<?php echo e(route('profile')); ?>">
+                                        <img src="<?php echo e(asset('images/user.svg')); ?>" width="18" alt="Profile">
                                     </a>
                                 </div>
                             </div>
@@ -1674,7 +1668,7 @@
                                         <img src="/images/search.webp" width="19" alt="">
                                     </a>
                                 </div>
-                                <div class=" profile-cart-icon">
+                                <div class=" profile-cart-icon d-none">
                                     <a href="/wishlist">
                                         <img src="/images/wishlist1.svg" width="18" alt="">
                                         <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session('wishlist') && count(session('wishlist')) > 0): ?>
@@ -1690,6 +1684,11 @@
                                             <span class="badge-count" style="background-color: #e02b2b;"><?php echo e(count(session('cart'))); ?></span>
                                         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
+                                    </a>
+                                </div>
+                                <div class="profile-cart-icon profile-section-container ms-2 d-none">
+                                    <a href="<?php echo e(route('profile')); ?>">
+                                        <img src="<?php echo e(asset('images/user.svg')); ?>" width="18" alt="Profile">
                                     </a>
                                 </div>
                             </div>
@@ -2264,7 +2263,7 @@
                 <li><a href="/sneakers">Sneakers</a></li>
                 <li><a href="/best-sellers">Best Sellers</a></li>
                 <li><a href="/mark-downs" class="clr-text">Mark Downs</a></li>
-                <li><a href="/juniors">Juniors</a></li>
+                <li><a href="/kids">Juniors</a></li>
                 <li><a href="/wallets">Wallets</a></li>
                 <li><a href="/mobile-covers">Mobile Covers</a></li>
                 <li><a href="/bags">Bags</a></li>
@@ -2273,27 +2272,5 @@
     </div>
 
     <main class="main--wrapper">
-
-        <div class="highlated-sale top-highlated d-lg-block d-none">
-            <div class="container">
-                <div class="row owl-carousel" id="top-carousel-off">
-                    <div class="sale-content d-flex align-items-center justify-content-center">
-                        <p>SALE</p>
-                        <div class="discount text-uppercase">Up to 60% off</div>
-                        <a href="" class="text-uppercase">Shop Now</a>
-                    </div>
-                    <div class="sale-content d-flex align-items-center justify-content-center">
-                        <p>SALE</p>
-                        <div class="discount text-uppercase">Up to 50% off</div>
-                        <a href="" class="text-uppercase">Shop Now</a>
-                    </div>
-                    <div class="sale-content d-flex align-items-center justify-content-center">
-                        <p>SALE</p>
-                        <div class="discount text-uppercase">Up to 30% off</div>
-                        <a href="" class="text-uppercase">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 <?php /**PATH D:\anu mostech\delunh\resources\views/website/nav.blade.php ENDPATH**/ ?>

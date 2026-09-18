@@ -42,38 +42,33 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|confirmed',
             'terms' => 'accepted'
         ]);
 
-        // Generate 6 digit OTP
-        $otp = rand(100000, 999999);
+        // Extract first and last name from full name
+        $nameParts = explode(' ', trim($request->full_name), 2);
+        $firstName = $nameParts[0];
+        $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
 
         $user = User::create([
-            'name' => trim($request->first_name . ' ' . $request->last_name),
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
+            'name' => $request->full_name,
+            'first_name' => $firstName,
+            'middle_name' => null,
+            'last_name' => $lastName,
+            'phone_number' => null,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'otp' => $otp,
-            'otp_expires_at' => Carbon::now()->addMinutes(10),
-            'is_verified' => false,
+            'otp' => null,
+            'otp_expires_at' => null,
+            'is_verified' => true,
         ]);
 
-        // Send OTP via Email
-        Mail::to($user->email)->send(new OtpMail($otp));
-
-        // Log the user in but they are not verified yet
         Auth::login($user);
 
-        return redirect()->route('otp.verify');
+        return redirect()->intended('/');
     }
 
     public function showOtpForm()

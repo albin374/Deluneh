@@ -465,6 +465,60 @@
         justify-content: center;
         align-items: center;
     }
+
+    @media (max-width: 767px) {
+        .tss-item-main {
+            padding: 10px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tss-item-img {
+            width: 90px;
+            height: 120px;
+        }
+        .tss-item-details {
+            width: calc(100% - 130px); /* Account for checkbox and image */
+        }
+        .tss-title-price {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .tss-price-section {
+            text-align: left;
+            margin-top: 5px;
+        }
+        .tss-selectors {
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .tss-select-wrapper {
+            min-width: 0;
+            flex-grow: 1;
+            padding: 5px;
+        }
+        .tss-select-wrapper select {
+            font-size: 11px;
+        }
+        .tss-item-footer {
+            width: 100%;
+            justify-content: space-between;
+            padding: 10px 0 0 0;
+            gap: 5px;
+        }
+        .tss-footer-btn {
+            flex-grow: 1;
+            padding: 8px 5px;
+            font-size: 11px;
+            text-align: center;
+        }
+        .cart-selection-bar {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .cart-progress-bar {
+            font-size: 12px !important;
+        }
+    }
 </style>
 
 <div class="whole_container mtop_40">

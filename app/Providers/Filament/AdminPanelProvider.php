@@ -28,9 +28,14 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName(new \Illuminate\Support\HtmlString('<div style="display: flex; align-items: center;"><span style="font-size: 32px; font-weight: 800; letter-spacing: 1px; line-height: 1;">DE LUNEH</span></div>'))
+            ->brandName(new \Illuminate\Support\HtmlString('<div style="display: flex; align-items: center;"><span class="logo-font">DE LUNEH</span></div>'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Red,
+            ])
+            ->font('Poppins')
+            ->sidebarCollapsibleOnDesktop()
+            ->assets([
+                \Filament\Support\Assets\Css::make('custom-admin-style', public_path('css/custom-admin.css')),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

@@ -53,14 +53,17 @@ body {
         justify-content: center;
         column-gap: 4px;
     }
-    #product-none{
-        display:none!important;
-    }
     .main-header{
         box-shadow:none!important;
     }
+    #home-none {
+        display: none !important;
+    }
         .main--wrapper {
         margin-top: 69px !important;
+    }
+    .quick-filter-wrapper[data-v-6cee8452] {
+        top: 80px !important;
     }
 }
 .main--wrapper {
@@ -109,25 +112,6 @@ body {
 }
 </style>
 <div class="special-page">
-<div class="mobile-filter-category hidden-large" style="bottom:none;">
-    <ul class="mobile-filter-flex d-flex align-items-center">
-        <li class="filter_btn">
-            <a href="javascript: void(0);">
-                <span class="filter-mob-text">MEN</span>
-            </a>
-        </li>
-        <li class="filter_btn">
-            <a href="javascript: void(0);">
-                <span class="filter-mob-text">WOMEN</span>
-            </a>
-        </li>
-        <li class="kids_btn">
-            <a href="javascript: void(0);">
-                <span class="filter-mob-text">KIDS</span>
-            </a>
-        </li>
-    </ul>
-</div>
 <section class="product_banner">
    <div class="container-fluid p-0">
        <div class="row">
@@ -147,6 +131,9 @@ body {
          @elseif(request()->is('bags') || (isset($currentCategory) && $currentCategory->slug == 'bags'))
            <img src="{{ asset('images/bags.png') }}" class="img-fluid w-100 hide-mobile" style="max-height: 400px; object-fit: cover; object-position: top;" alt="">
            <img src="{{ asset('images/bags.png') }}" class="img-fluid hidden-large w-100" style="object-fit: cover; object-position: top;" alt="">
+         @elseif(request()->is('mobile-covers') || (isset($currentCategory) && $currentCategory->slug == 'mobile-covers'))
+           <img src="{{ asset('images/bannermobilecover.png') }}" class="img-fluid w-100 hide-mobile" style="max-height: 400px; object-fit: cover; object-position: top;" alt="">
+           <img src="{{ asset('images/bannermobilecover.png') }}" class="img-fluid hidden-large w-100" style="object-fit: cover; object-position: top;" alt="">
          @elseif(isset($markdownBanners) && $markdownBanners->count() > 0)
             <div class="container my-5">
                 <div class="row justify-content-center">
@@ -166,124 +153,162 @@ body {
                     @endforeach
                 </div>
             </div>
+         @elseif(isset($officialMerchImages) && $officialMerchImages->count() > 0 && request()->is('official-merch'))
+            <div class="container my-5">
+                @foreach($officialMerchImages as $section)
+                    @if(empty($section->images))
+                        @continue
+                    @endif
+                    
+                    <div class="row justify-content-center mb-5">
+                        @if($section->style === 'banner')
+                            {{-- Banner Style: 1 Full Width Image --}}
+                            @foreach($section->images as $image)
+                                <div class="col-12 text-center mb-3">
+                                    @if($section->link)
+                                        <a href="{{ $section->link }}">
+                                    @endif
+                                    <img src="{{ asset('storage/' . $image) }}" class="img-fluid w-100" style="border-radius: 12px; object-fit: cover; object-position: center;" alt="Official Merch Banner">
+                                    @if($section->link)
+                                        </a>
+                                    @endif
+                                </div>
+                            @endforeach
+                            
+                        @elseif($section->style === 'grid-2')
+                            {{-- Grid Style: 2 Images per row --}}
+                            @foreach($section->images as $image)
+                                <div class="col-6 text-center mb-3">
+                                    @if($section->link)
+                                        <a href="{{ $section->link }}">
+                                    @endif
+                                    <img src="{{ asset('storage/' . $image) }}" class="img-fluid w-100" style="border-radius: 12px; object-fit: cover; object-position: center;" alt="Official Merch Grid Image">
+                                    @if($section->link)
+                                        </a>
+                                    @endif
+                                </div>
+                            @endforeach
+                            
+                        @elseif($section->style === 'carousel')
+                            {{-- Carousel Style: 3 Images moving --}}
+                            <div class="col-12">
+                                <div class="owl-carousel owl-theme merch-carousel">
+                                    @foreach($section->images as $image)
+                                        <div class="item text-center">
+                                            @if($section->link)
+                                                <a href="{{ $section->link }}">
+                                            @endif
+                                            <img src="{{ asset('storage/' . $image) }}" class="img-fluid w-100" style="border-radius: 12px; object-fit: cover; object-position: center;" alt="Official Merch Carousel Image">
+                                            @if($section->link)
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if(typeof $ !== 'undefined' && $.fn.owlCarousel) {
+                        $('.merch-carousel').owlCarousel({
+                            loop: true,
+                            margin: 15,
+                            nav: true,
+                            dots: false,
+                            autoplay: true,
+                            autoplayTimeout: 3000,
+                            autoplayHoverPause: true,
+                            responsive: {
+                                0: { items: 1 },
+                                600: { items: 2 },
+                                1000: { items: 3 }
+                            }
+                        });
+                    }
+                });
+            </script>
          @elseif(request()->is('mark-downs'))
             <div class="container my-5 text-center py-5">
                 <h4 style="color: #666; font-weight: normal;">Sorry, currently DE LUNEH store has no mark downs right now. Visit next time! 😊</h4>
             </div>
+         @elseif(request()->is('official-merch'))
+            <!-- No banner for official merch -->
          @else
-           <img src="{{ asset('images/product_banner.jpg') }}" class="img-fluid hide-mobile w-100" alt="">
-           <!--<img src="/images/product_banner_mob.jpg" class="img-fluid hidden-large" style="border-radius:4px;" alt="">-->
-           <video class="hidden-large w-100"
-                src="{{ asset('images/istockphoto-1954855689-640_adpp_is.mp4') }}"
-                autoplay
-                muted
-                loop
-                playsinline
-                style="border-radius:4px;"
-            ></video>
+           <img src="{{ asset('images/product_banner.jpg') }}" class="img-fluid w-100" style="object-fit: cover; object-position: center;" alt="">
        @endif
                                                 
        <!--<img src="https://prod-img.thesouledstore.com/public/theSoul/storage/mobile-cms-media-prod/banner-images/fandom_feb_mobile_copy_chnage.png?w=768&dpr=2" class="img-fluid hidden-large" alt="" style="width:100%;height:180px;border-radius:4px;">-->
    </div> 
 </section>
-@if(!request()->is('mark-downs'))
-<div data-v-6cee8452="" class="quick-filter-wrapper d-block d-lg-none"><div data-v-6cee8452="" class="quick-filter-container"><div data-v-26f680c0="" data-v-6cee8452="" class="quick-filters-container"><div data-v-26f680c0="" class="quick-filters"><button data-v-26f680c0="" class="filter-chip">
-      Oversized T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Relaxed Fit T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Socks
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Collectibles
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized Sweaters
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Boyfriend T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Oversized Hoodies
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Oversized Full Sleeve T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Oversized Polos
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Boxer Shorts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Oversized Pullovers
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Oversized Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Knitted Sweaters
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized Jerseys
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized Sweatshirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Backpacks
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Holiday Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Hooded T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Iron On Patches
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Clogs
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Lounge Shorts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Oversized Sweatshirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Relaxed Fit T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Men Rugby Polos
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Pajamas
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Super Oversized T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Co-ord Sets
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Boys Cotton T-Shirts (2-8 Yrs)
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Girls Cotton Sweatshirts (2-8 Yrs)
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Half Sleeve Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Jackets
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Polos
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Pullovers
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Rugs
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Boyfriend Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Cropped Rugby Polos
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Cropped Sweaters
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Cropped Tops
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Flared Joggers
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Lounge Shorts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized Cropped T-Shirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Oversized Varsity Jackets
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Pants
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Puffer Jackets
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Women Sweatshirts
-    </button><button data-v-26f680c0="" class="filter-chip">
-      Zipper Polos
-    </button></div></div></div></div>
+@if(!request()->is('mark-downs') && !request()->is('official-merch'))
+@php
+    $chips = collect();
+    $isSibling = false;
+    $isTopLevelGender = false;
+    
+    $segment1 = request()->segment(1);
+    
+    if (in_array($segment1, ['men', 'woman', 'kids']) && request()->segment(2) == null) {
+        $isTopLevelGender = true;
+    }
+    
+    if ($isTopLevelGender) {
+        $chips = collect([
+            (object)['name' => 'Clothing', 'slug' => 'clothing'],
+            (object)['name' => 'Footwear', 'slug' => 'footwear'],
+            (object)['name' => 'Bags', 'slug' => 'bags'],
+        ]);
+    } else {
+        if (isset($currentCategory) && $currentCategory->exists) {
+            if ($currentCategory->children && $currentCategory->children->count() > 0) {
+                $chips = $currentCategory->children;
+            } elseif ($currentCategory->parent && $currentCategory->parent->children) {
+                $chips = $currentCategory->parent->children;
+                $isSibling = true;
+            }
+        }
+    }
+@endphp
+
+@if($chips->count() > 0)
+<div data-v-6cee8452="" class="quick-filter-wrapper d-block d-lg-none">
+    <div data-v-6cee8452="" class="quick-filter-container">
+        <div data-v-26f680c0="" data-v-6cee8452="" class="quick-filters-container">
+            <div data-v-26f680c0="" class="quick-filters">
+                @foreach($chips as $chip)
+                    @php
+                        $currentPath = request()->path();
+                        if ($isTopLevelGender) {
+                            $link = url($currentPath . '/' . $chip->slug);
+                        } else {
+                            if (isset($chip->id) && $isSibling) {
+                                $segments = explode('/', $currentPath);
+                                array_pop($segments);
+                                $segments[] = $chip->slug;
+                                $link = url(implode('/', $segments));
+                            } else {
+                                $link = url(trim($currentPath, '/') . '/' . $chip->slug);
+                            }
+                        }
+                        
+                        $displayName = $chip->name;
+                        if (!$isTopLevelGender && preg_match('/^(.*?)\s+(woman|men|kids)$/i', $displayName, $matches)) {
+                            $displayName = ucfirst($matches[1]);
+                        }
+                    @endphp
+                    <a data-v-26f680c0="" href="{{ $link }}" class="filter-chip {{ (isset($currentCategory) && isset($chip->id) && $currentCategory->id == $chip->id) ? 'active' : '' }}" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center; padding: 4px 12px; height: 32px;">
+                        {{ $displayName }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <div class="product-container p-0">
     <div class="container-fluid">
                         <div class="row hide-mobile">
@@ -550,8 +575,28 @@ body {
 #customFilterWrapper .cf-apply-btn {
   color: #0f7c6b;
 }
-.filter-mobile-slide{
-    display:none;
+.filter_section {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 9999;
+    transition: 0.3s ease;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+.filter_section_open {
+    bottom: 0;
+}
+.filter-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
 }
 @media (max-width: 767px) {
     .accordion-wrapper {
@@ -665,95 +710,126 @@ body {
     </div>
 </div>
 <!-- <div class="overlay_bg hidden-large"></div> -->
-<div class="filter-mobile-slide">
-    <!-- FILTER COMPONENT START -->
-<div id="customFilterWrapper">
+    @php
+        $allSizes = [];
+        $minPrice = 0;
+        $maxPrice = 0;
+        if (isset($products) && $products->count() > 0) {
+            $minPrice = $products->min('price');
+            $maxPrice = $products->max('price');
+            
+            foreach ($products as $product) {
+                if (is_array($product->sizes)) {
+                    $allSizes = array_merge($allSizes, $product->sizes);
+                } elseif (is_string($product->sizes)) {
+                    $decoded = json_decode($product->sizes, true);
+                    if(is_array($decoded)) {
+                         $allSizes = array_merge($allSizes, $decoded);
+                    }
+                }
+            }
+            $allSizes = array_unique($allSizes);
+            
+            // Custom sort for standard sizes
+            $sizeOrder = ['XS' => 1, 'S' => 2, 'M' => 3, 'L' => 4, 'XL' => 5, 'XXL' => 6, 'XXXL' => 7];
+            usort($allSizes, function($a, $b) use ($sizeOrder) {
+                $valA = $sizeOrder[$a] ?? 99;
+                $valB = $sizeOrder[$b] ?? 99;
+                if ($valA == $valB) return strcmp($a, $b);
+                return $valA - $valB;
+            });
+        }
 
-  <div class="cf-overlay">
-    <div class="cf-panel">
-
-      <div class="cf-header">
-        <div class="cf-title">Filter</div>
-      <div class="cf-clear">Clear All</div>
-        <div class="cf-close">&times;</div>
-      </div>
-
-      <div class="cf-body">
-        <div class="cf-tabs">
-          <div class="cf-tab active" data-tab="categories">Categories</div>
-          <div class="cf-tab" data-tab="size">Size</div>
-          <div class="cf-tab" data-tab="prices">Prices</div>
+        $clothingSizes = [];
+        $footwearSizes = [];
+        foreach($allSizes as $size) {
+            if(is_numeric($size)) {
+                $footwearSizes[] = $size;
+            } else {
+                $clothingSizes[] = $size;
+            }
+        }
+        sort($footwearSizes);
+        
+        $priceRanges = [];
+        if ($maxPrice > 0) {
+            $step = max(500, ceil(($maxPrice - $minPrice) / 4 / 100) * 100);
+            if ($step == 0) $step = 500; // prevent zero division or step
+            $start = floor($minPrice / $step) * $step;
+            $end = ceil($maxPrice / $step) * $step;
+            if ($start == $end) {
+                $end = $start + $step;
+            }
+            
+            for ($i = $start; $i < $end; $i += $step) {
+                $rangeMin = $i;
+                $rangeMax = $i + $step - 1;
+                $rangeCount = $products->whereBetween('price', [$rangeMin, $rangeMax])->count();
+                if ($rangeCount > 0) {
+                    $priceRanges[] = [
+                        'label' => 'Rs. ' . $rangeMin . ' - Rs. ' . $rangeMax,
+                        'value' => $rangeMin . '-' . $rangeMax,
+                        'count' => $rangeCount
+                    ];
+                }
+            }
+        }
+    @endphp
+<div class="filter-overlay" id="filterOverlay"></div>
+<div class="filter_section sort_section" id="customFilterWrapper">
+    <div class="sort_heading" style="padding: 15px 20px; border-bottom: 1px solid #eee;">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <svg enable-background="new 0 0 32 32" height="24" width="24" id="Editable-line" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="  M3.241,7.646L13,19v9l6-4v-5l9.759-11.354C29.315,6.996,28.848,6,27.986,6H4.014C3.152,6,2.685,6.996,3.241,7.646z" fill="none" id="XMLID_6_" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/></svg>
+                <h5 style="margin-left: 8px; margin-bottom: 0; font-size: 16px; font-weight: bold;">FILTER</h5>
+            </div>
+            <div class="cf-close" style="cursor:pointer;">
+                <i class="fa-solid fa-xmark" style="font-size: 20px;"></i>
+            </div>
         </div>
-
-        <div class="cf-content">
-
-          <!-- Categories -->
-          <div class="cf-tab-content active" id="categories">
-            <div class="cf-item">
-              <span>Bomber Jackets</span>
-              <span class="cf-count">2</span>
-              <input type="checkbox">
-            </div>
-            <div class="cf-item">
-              <span>Cotton Linen Pants</span>
-              <span class="cf-count">7</span>
-              <input type="checkbox">
-            </div>
-            <div class="cf-item">
-              <span>Cotton Linen Shirts</span>
-              <span class="cf-count">102</span>
-              <input type="checkbox">
-            </div>
-          </div>
-
-
-
-          <!-- Size -->
-          <div class="cf-tab-content" id="size">
-            <div class="cf-item">
-              <span>Men Bermuda Shorts</span>
-              <span class="cf-count">1</span>
-              <input type="checkbox">
-            </div>
-            <div class="cf-item">
-              <span>Men Co-Ord Sets</span>
-              <span class="cf-count">2</span>
-              <input type="checkbox">
-            </div>
-          </div>
-
-          <!-- Prices -->
-          <div class="cf-tab-content" id="prices">
-            <div class="cf-item">
-              <span>Overshirts</span>
-              <span class="cf-count">3</span>
-              <input type="checkbox">
-            </div>
-            <div class="cf-item">
-              <span>Oversized Shirts</span>
-              <span class="cf-count">2</span>
-              <input type="checkbox">
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="cf-footer">
-  <div class="row">
-    <div class="col-6 col-md-6 text-center" style="border-right: 1px solid #ccc;
-">
-      <button class="cf-btn cf-close-btn">CLOSE</button>
     </div>
-    <div class="col-6 col-md-6 text-center">
-      <button class="cf-btn cf-apply-btn">APPLY</button>
-    </div>
-  </div>
-</div>
 
+    <div class="sort_list" style="max-height: 60vh; overflow-y: auto;">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            @if(count($clothingSizes) > 0)
+                <li style="padding: 10px 20px; font-weight: bold; background: #f9f9f9; color: #555; font-size: 14px;">Clothing Size</li>
+                <li style="padding: 10px 20px;">
+                    <div class="size-grid">
+                        @foreach($clothingSizes as $size)
+                            <div class="size-pill" data-size="{{ $size }}">{{ $size }}</div>
+                        @endforeach
+                    </div>
+                </li>
+            @endif
+
+            @if(count($footwearSizes) > 0)
+                <li style="padding: 10px 20px; font-weight: bold; background: #f9f9f9; color: #555; font-size: 14px;">Footwear Size</li>
+                <li style="padding: 10px 20px;">
+                    <div class="size-grid">
+                        @foreach($footwearSizes as $size)
+                            <div class="size-pill" data-size="{{ $size }}">{{ $size }}</div>
+                        @endforeach
+                    </div>
+                </li>
+            @endif
+
+            @if(count($priceRanges) > 0)
+                <li style="padding: 10px 20px; font-weight: bold; background: #f9f9f9; color: #555; font-size: 14px;">Prices</li>
+                @foreach($priceRanges as $range)
+                <li style="padding: 10px 20px; border-bottom: 1px solid #f0f0f0;">
+                    <label class="sort_option d-flex align-items-center" style="cursor:pointer; margin: 0; font-size: 14px; gap: 8px;">
+                        <input type="radio" name="price_range" value="{{ $range['value'] }}" class="price-filter-radio">
+                        <span>{{ $range['label'] }}</span>
+                    </label>
+                </li>
+                @endforeach
+            @endif
+        </ul>
     </div>
-  </div>
-</div>
-<!-- FILTER COMPONENT END -->
+    <div style="padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eee; background: #fff;">
+        <button class="cf-clear btn btn-outline-dark" style="flex:1;">Clear All</button>
+        <button class="cf-apply-btn btn btn-dark" style="flex:1;">Apply</button>
+    </div>
 </div>
         <div class="row">
             <div class="col-md-3 d-none d-lg-block">
@@ -827,72 +903,6 @@ body {
     </div>
 
     <hr style="margin:25px 10px 0px;">
-
-    @php
-        $allSizes = [];
-        $minPrice = 0;
-        $maxPrice = 0;
-        if (isset($products) && $products->count() > 0) {
-            $minPrice = $products->min('price');
-            $maxPrice = $products->max('price');
-            
-            foreach ($products as $product) {
-                if (is_array($product->sizes)) {
-                    $allSizes = array_merge($allSizes, $product->sizes);
-                } elseif (is_string($product->sizes)) {
-                    $decoded = json_decode($product->sizes, true);
-                    if(is_array($decoded)) {
-                         $allSizes = array_merge($allSizes, $decoded);
-                    }
-                }
-            }
-            $allSizes = array_unique($allSizes);
-            
-            // Custom sort for standard sizes
-            $sizeOrder = ['XS' => 1, 'S' => 2, 'M' => 3, 'L' => 4, 'XL' => 5, 'XXL' => 6, 'XXXL' => 7];
-            usort($allSizes, function($a, $b) use ($sizeOrder) {
-                $valA = $sizeOrder[$a] ?? 99;
-                $valB = $sizeOrder[$b] ?? 99;
-                if ($valA == $valB) return strcmp($a, $b);
-                return $valA - $valB;
-            });
-        }
-
-        $clothingSizes = [];
-        $footwearSizes = [];
-        foreach($allSizes as $size) {
-            if(is_numeric($size)) {
-                $footwearSizes[] = $size;
-            } else {
-                $clothingSizes[] = $size;
-            }
-        }
-        sort($footwearSizes);
-        
-        $priceRanges = [];
-        if ($maxPrice > 0) {
-            $step = max(500, ceil(($maxPrice - $minPrice) / 4 / 100) * 100);
-            if ($step == 0) $step = 500; // prevent zero division or step
-            $start = floor($minPrice / $step) * $step;
-            $end = ceil($maxPrice / $step) * $step;
-            if ($start == $end) {
-                $end = $start + $step;
-            }
-            
-            for ($i = $start; $i < $end; $i += $step) {
-                $rangeMin = $i;
-                $rangeMax = $i + $step - 1;
-                $rangeCount = $products->whereBetween('price', [$rangeMin, $rangeMax])->count();
-                if ($rangeCount > 0) {
-                    $priceRanges[] = [
-                        'label' => 'Rs. ' . $rangeMin . ' - Rs. ' . $rangeMax,
-                        'value' => $rangeMin . '-' . $rangeMax,
-                        'count' => $rangeCount
-                    ];
-                }
-            }
-        }
-    @endphp
 
     @if(count($clothingSizes) > 0)
         <div class="filter-title mt-4">CLOTHING SIZE</div>
@@ -1164,47 +1174,41 @@ document.querySelectorAll('.price-extra').forEach(el=> el.style.display='none');
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const wrapper = document.getElementById("customFilterWrapper");
+  const filterBtn = document.getElementById("filter_btn_a");
+  const overlay = document.getElementById("filterOverlay");
+  
   if(!wrapper) return;
-  const tabs = wrapper.querySelectorAll(".cf-tab");
-  const contents = wrapper.querySelectorAll(".cf-tab-content");
+  
+  if (filterBtn) {
+    filterBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      wrapper.classList.add("filter_section_open");
+      if (overlay) overlay.style.display = "block";
+      document.documentElement.classList.add("no-scroll");
+    });
+  }
+
   const closeBtn = wrapper.querySelector(".cf-close");
   const clearBtn = wrapper.querySelector(".cf-clear");
-  const bottomClose = wrapper.querySelector(".cf-close-btn");
   const applyBtn = wrapper.querySelector(".cf-apply-btn");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
-      tabs.forEach(t => t.classList.remove("active"));
-      contents.forEach(c => c.classList.remove("active"));
-      this.classList.add("active");
-      wrapper.querySelector("#" + this.dataset.tab).classList.add("active");
-    });
-  });
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", function() {
-      wrapper.style.display = "none";
+  const closeFilter = function() {
+      wrapper.classList.remove("filter_section_open");
+      if (overlay) overlay.style.display = "none";
       document.documentElement.classList.remove("no-scroll"); 
-    });
-  }
-  
-  if (bottomClose) {
-    bottomClose.addEventListener("click", function() {
-      wrapper.style.display = "none";
-      document.documentElement.classList.remove("no-scroll"); 
-    });
-  }
+  };
 
-  if (applyBtn) {
-    applyBtn.addEventListener("click", function() {
-      wrapper.style.display = "none";
-    });
-  }
+  if (closeBtn) closeBtn.addEventListener("click", closeFilter);
+  if (applyBtn) applyBtn.addEventListener("click", closeFilter);
+  if (overlay) overlay.addEventListener("click", closeFilter);
 
   if (clearBtn) {
     clearBtn.addEventListener("click", function() {
-      const checkboxes = wrapper.querySelectorAll("input[type='checkbox']");
+      const checkboxes = wrapper.querySelectorAll("input[type='checkbox'], input[type='radio']");
       checkboxes.forEach(cb => cb.checked = false);
+      
+      const pills = wrapper.querySelectorAll(".size-pill.active");
+      pills.forEach(pill => pill.classList.remove("active"));
     });
   }
 });
@@ -1318,7 +1322,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         }
                         
                         // Update header wishlist badge if exists
-                        const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count');
+                        const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count, .mobile-bottom-nav .badge-count');
                         if (data.wishlist_count > 0) {
                             wishlistBadges.forEach(badge => {
                                 badge.textContent = data.wishlist_count;

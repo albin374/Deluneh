@@ -102,9 +102,19 @@ class CategoryController extends Controller
             $currentCategory->setRelation('children', collect([]));
         }
 
-        $products = \App\Models\Product::whereIn('category_id', $categoryIds)
-            ->where('is_active', true)
-            ->get();
+        if (strtolower($slug) === 'best-sellers') {
+            $products = \App\Models\BestSeller::with('product')
+                ->orderBy('sort_order')
+                ->get()
+                ->pluck('product')
+                ->filter(function ($product) {
+                    return $product && $product->is_active;
+                });
+        } else {
+            $products = \App\Models\Product::whereIn('category_id', $categoryIds)
+                ->where('is_active', true)
+                ->get();
+        }
             
         $categories = \App\Models\Category::where('is_active', true)->whereNull('parent_id')->get();
 
@@ -113,7 +123,12 @@ class CategoryController extends Controller
             $markdownBanners = \App\Models\MarkDownBanner::where('is_active', true)->orderBy('sort_order')->get();
         }
 
-        return view('website.product', compact('products', 'categories', 'currentCategory', 'markdownBanners'));
+        $officialMerchImages = collect();
+        if (strtolower($slug) === 'official-merch') {
+            $officialMerchImages = \App\Models\OfficialMerchImage::where('is_active', true)->orderBy('sort_order')->get();
+        }
+
+        return view('website.product', compact('products', 'categories', 'currentCategory', 'markdownBanners', 'officialMerchImages'));
     }
 
     private function getAllCategoryIds($category)

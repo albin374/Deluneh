@@ -111,8 +111,8 @@ class HomeController extends Controller
                 "product_id" => $product->id,
                 "name" => $product->name,
                 "quantity" => $request->quantity,
-                "price" => $product->price,
-                "old_price" => $product->old_price,
+                "price" => $product->discount_price ?? $product->price,
+                "old_price" => $product->discount_price ? $product->price : $product->old_price,
                 "size" => $request->size,
                 "image" => $product->images && count($product->images) > 0 ? $product->images[0] : null,
                 "category" => $product->category ? $product->category->name : 'Uncategorized'
@@ -256,5 +256,90 @@ class HomeController extends Controller
     public function dbhost(){
         \Artisan::call('config:clear');
         return "Config cache cleared.";
+    }
+
+    public function profile()
+    {
+        return view('website.profile');
+    }
+
+    public function savedAddress()
+    {
+        return view('website.saved-address');
+    }
+
+    public function saveAddress(Request $request)
+    {
+        $request->validate([
+            'address_full_name' => 'required|string|max:255',
+            'address_mobile_number' => 'required|string|max:20',
+            'address' => 'required|string',
+            'pincode' => 'required|string|max:20',
+        ]);
+
+        $user = auth()->user();
+        $user->update([
+            'address_full_name' => $request->address_full_name,
+            'address_mobile_number' => $request->address_mobile_number,
+            'address' => $request->address,
+            'pincode' => $request->pincode,
+        ]);
+
+        return redirect()->back()->with('success', 'Address saved successfully!');
+    }
+
+    public function contact()
+    {
+        $session_id = session()->getId();
+        $orders = \App\Models\Order::with('items.product')
+            ->where(function($query) use ($session_id) {
+                if(auth()->check()) {
+                    $query->where('user_id', auth()->id());
+                } else {
+                    $query->where('session_id', $session_id);
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('website.contact', compact('orders'));
+    }
+
+    public function submitContact(Request $request)
+    {
+        $request->validate([
+            'enquiry_type' => 'required|string',
+            'order_id' => 'nullable|string',
+            'message' => 'nullable|string',
+            'image_path' => 'nullable|image|max:5120',
+        ]);
+
+        $contactMessage = new \App\Models\ContactMessage();
+        $contactMessage->enquiry_type = $request->enquiry_type;
+        $contactMessage->order_id = $request->order_id;
+        $contactMessage->message = $request->message;
+        
+        if (auth()->check()) {
+            $contactMessage->user_id = auth()->id();
+            $contactMessage->name = auth()->user()->name ?? '';
+            $contactMessage->email = auth()->user()->email ?? '';
+        } else {
+            $contactMessage->name = $request->name ?? 'Guest';
+            $contactMessage->email = $request->email ?? '';
+        }
+
+        if ($request->hasFile('image_path')) {
+            $path = $request->file('image_path')->store('contact_images', 'public');
+            $contactMessage->image_path = $path;
+        }
+
+        $contactMessage->save();
+
+        return redirect()->back()->with('success', 'Your message has been sent successfully. We will get back to you soon!');
+    }
+
+    public function faq()
+    {
+        return view('website.faq');
     }
 }

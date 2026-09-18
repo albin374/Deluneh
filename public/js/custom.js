@@ -250,12 +250,16 @@ $(document).ready(function () {
 
 
 $(window).scroll(function () {
-  if ($(window).scrollTop() >= 100) {
+  if ($(window).scrollTop() >= 0) {
     $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
   }
   else {
-    $('.add_sticky_mobile_cart').removeClass('mob-stricky-fixed');
+    $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
   }
+});
+// Ensure it's added immediately on load as well
+$(document).ready(function() {
+  $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
 });
 
 $(window).scroll(function () {

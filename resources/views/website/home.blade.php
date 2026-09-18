@@ -324,8 +324,14 @@
                                                      <span style="font-size: 11px;">{{ $product->category ? $product->category->name : 'Uncategorized' }}</span>
                                                 </div>
                                                 <p class="item-price">
-                                                    <span class="offer_price_number">₹{{ $product->price }}</span>
-                                                    @if($product->old_price)
+                                                    <span class="offer_price_number">₹{{ $product->discount_price ?? $product->price }}</span>
+                                                    @if($product->discount_price && $product->discount_price < $product->price)
+                                                        <span class="price_number">₹{{ $product->price }}</span>
+                                                        @php
+                                                            $discount = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                                        @endphp
+                                                        <span class="offer">{{ $discount }}% OFF</span>
+                                                    @elseif($product->old_price)
                                                         <span class="price_number">₹{{ $product->old_price }}</span>
                                                         @php
                                                             $discount = round((($product->old_price - $product->price) / $product->old_price) * 100);
@@ -367,8 +373,14 @@
                                                     </div>
                                                 </div>
                                                 <p class="item-price">
-                                                    <span class="offer_price_number">₹{{ $product->price }}</span>
-                                                    @if($product->old_price)
+                                                    <span class="offer_price_number">₹{{ $product->discount_price ?? $product->price }}</span>
+                                                    @if($product->discount_price && $product->discount_price < $product->price)
+                                                        <span class="price_number">₹{{ $product->price }}</span>
+                                                        @php
+                                                            $discount = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                                        @endphp
+                                                        <span class="offer">{{ $discount }}% OFF</span>
+                                                    @elseif($product->old_price)
                                                         <span class="price_number">₹{{ $product->old_price }}</span>
                                                         @php
                                                             $discount = round((($product->old_price - $product->price) / $product->old_price) * 100);

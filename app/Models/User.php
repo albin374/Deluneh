@@ -28,6 +28,10 @@ class User extends Authenticatable
         'is_verified',
         'email',
         'password',
+        'address_full_name',
+        'address_mobile_number',
+        'address',
+        'pincode',
     ];
 
     /**

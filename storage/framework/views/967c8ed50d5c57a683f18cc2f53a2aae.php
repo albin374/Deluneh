@@ -66,10 +66,10 @@
                                                 <div class="footer-column">
                                                     <h4 class="SiteLinks_heading__VAIYr" style="color: #e02b2b; font-size: 15px; font-weight: 700; text-transform: uppercase; margin-bottom: 20px;">Need Help</h4>
                                                     <ul class="footer-menu list-unstyled" style="line-height: 2.2; font-size: 13px; font-weight: 600; color: #58595b; margin: 0; padding: 0;">
-                                                        <li><a href="/contact.html" style="color: #58595b; text-decoration: none;">Contact Us</a></li>
+                                                        <li><a href="<?php echo e(route('contact')); ?>" style="color: #58595b; text-decoration: none;">Contact Us</a></li>
                                                         <li><a href="<?php echo e(route('track.order')); ?>" style="color: #58595b; text-decoration: none;">Track Order</a></li>
                                                         <li><a href="/return.html" style="color: #58595b; text-decoration: none;">Returns & Refunds</a></li>
-                                                        <li><a href="/faq.html" style="color: #58595b; text-decoration: none;">FAQs</a></li>
+                                                        <li><a href="<?php echo e(route('faq')); ?>" style="color: #58595b; text-decoration: none;">FAQs</a></li>
                                                         <li><a href="/profile.html" style="color: #58595b; text-decoration: none;">My Account</a></li>
                                                     </ul>
                                                     <div class="mt-3" style="font-size: 12px; color: #58595b; font-weight: 500;">
@@ -432,6 +432,27 @@ if(el){
   });
 </script>
 
-</body>
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav d-flex d-md-none justify-content-around align-items-center">
+    <a href="<?php echo e(url('/')); ?>" class="nav-item text-center">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="<?php echo e(url('/product')); ?>" class="nav-item text-center">
+        <i class="fa-solid fa-list"></i>
+        <span>Category</span>
+    </a>
+    <a href="<?php echo e(route('website.wishlist')); ?>" class="nav-item text-center position-relative">
+        <i class="fa-regular fa-heart"></i>
+        <?php $wishCount = session()->has('wishlist') ? count(session('wishlist')) : 0; ?>
+        <span class="badge-count" style="background-color: #e02b2b; position: absolute; top: -2px; right: 20%; font-size: 10px; width: 16px; height: 16px; display: <?php echo e($wishCount > 0 ? 'flex' : 'none'); ?>; align-items: center; justify-content: center; border-radius: 50%; color: white;"><?php echo e($wishCount); ?></span>
+        <span>Wishlist</span>
+    </a>
+    <a href="<?php echo e(route('profile')); ?>" class="nav-item text-center">
+        <i class="fa-regular fa-user"></i>
+        <span>Profile</span>
+    </a>
+</div>
 
+</body>
 </html><?php /**PATH D:\anu mostech\delunh\resources\views/website/footer.blade.php ENDPATH**/ ?>

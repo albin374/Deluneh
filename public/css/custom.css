@@ -2432,17 +2432,19 @@ a {
   color: #fff;
 }
 
-.prdct-button:hover {
+.prdct-button:hover,
+.prdct-button:hover span {
   background: var(--theme);
-  color: #fff;
+  color: #fff !important;
 }
 
-.prdct-button:hover svg path {
-  fill: #fff;
+.prdct-button:hover svg path,
+.prdct-button:hover svg .cls-1 {
+  fill: #fff !important;
 }
 
 .bg-button svg path {
-  fill: #fff;
+  fill: #fff !important;
 }
 
 .prdct-button span {
@@ -9821,4 +9823,77 @@ body:not(:has(:target)) #all {
   text-indent: -9999px;
   min-height: 75px;
   overflow: hidden;
+}
+
+/* Mobile Bottom Navigation */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    padding: 10px 0;
+}
+
+.mobile-bottom-nav .nav-item {
+    color: #58595b;
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    border-right: 1px solid #e02b2b; /* Red line separator */
+}
+
+.mobile-bottom-nav .nav-item:last-child {
+    border-right: none;
+}
+
+.mobile-bottom-nav .nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+    color: #58595b;
+}
+
+.mobile-bottom-nav .nav-item:hover,
+.mobile-bottom-nav .nav-item:hover i {
+    color: #e02b2b; /* Red theme color */
+}
+
+/* Padding to prevent content from hiding behind fixed nav on mobile */
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 65px;
+    }
+}
+
+/* Horizontal scroll for category menu bar */
+.menu-bar.horizontal-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px; /* Space between categories */
+    padding: 10px 15px;
+    scrollbar-width: none; /* Firefox */
+}
+
+.menu-bar.horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.menu-bar.horizontal-scroll a {
+    flex: 0 0 auto;
+    color: #58595b;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 13px; /* Slightly smaller for mobile */
+}
+
+.menu-bar.horizontal-scroll a.active {
+    color: #e02b2b; /* Active category color */
 }

@@ -6,9 +6,24 @@
     border-color: #e02b2b !important;
     color: #fff !important;
 }
-.transparent-button:hover {
+.transparent-button {
+    color: #e02b2b !important;
+}
+.transparent-button span, .product-detail-button.mob-stricky-fixed .transparent-button span {
+    color: #e02b2b !important;
+}
+.transparent-button svg path.cls-1 {
+    fill: #e02b2b !important;
+}
+.transparent-button:hover, 
+.transparent-button:hover span,
+.product-detail-button.mob-stricky-fixed .transparent-button:hover span {
     background: #e02b2b !important;
     color: #fff !important;
+}
+.transparent-button:hover svg path.cls-1,
+.product-detail-button.mob-stricky-fixed .transparent-button:hover svg path.cls-1 {
+    fill: #fff !important;
 }
 .navigation {
     display: none;
@@ -89,10 +104,9 @@
  
 }
 .delivery_option label {
-{
           font-size: 15px!important;
 }
- #product-none{
+    #home-none {
         display:none!important;
     }
     .product-details-collpase .accordion-button:not(.collapsed)::after {
@@ -349,7 +363,7 @@
                             <div class="product-detail-button add_sticky_mobile_cart">
                                 <button class="prdct-button bg-button" id="add-to-cart-btn" data-product-id="{{ $product->id }}">
                                     <span class="d-flex justify-content-center">
-                                        <?xml version="1.0" ?><svg height="15px" width="19px" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 160h-72V120C344 53.83 290.2 0 224 0S104 53.83 104 120V160H32C14.33 160 0 174.3 0 192v240C0 476.2 35.82 512 80 512h288c44.18 0 80-35.82 80-80V192C448 174.3 433.7 160 416 160zM152 120C152 80.3 184.3 48 224 48s72 32.3 72 72V160h-144V120zM128 248C114.8 248 104 237.3 104 224S114.8 200 128 200S152 210.8 152 224S141.3 248 128 248zM320 248c-13.25 0-24-10.75-24-24S306.8 200 320 200S344 210.8 344 224S333.3 248 320 248z"/></svg>
+                                        <svg height="15px" width="19px" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 160h-72V120C344 53.83 290.2 0 224 0S104 53.83 104 120V160H32C14.33 160 0 174.3 0 192v240C0 476.2 35.82 512 80 512h288c44.18 0 80-35.82 80-80V192C448 174.3 433.7 160 416 160zM152 120C152 80.3 184.3 48 224 48s72 32.3 72 72V160h-144V120zM128 248C114.8 248 104 237.3 104 224S114.8 200 128 200S152 210.8 152 224S141.3 248 128 248zM320 248c-13.25 0-24-10.75-24-24S306.8 200 320 200S344 210.8 344 224S333.3 248 320 248z"/></svg>
                                         Add to cart
                                     </span>
                                 </button>
@@ -358,7 +372,7 @@
                                     $btnText = $inWishlist ? 'ADDED TO WISHLIST' : 'Add to wishlist';
                                 @endphp
                                 <button class="prdct-button transparent-button" id="addToWishlistBtn" data-product-id="{{ $product->id }}">
-                                    <?xml version="1.0" ?><svg height="15px" width="19px" data-name="Layer 4" id="Layer_4" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#231f20;}</style></defs><path class="cls-1" d="M80.79,28.43A21.2,21.2,0,0,1,102,49.61c0,8.12-3.52,20.9-20.26,35.67A120.67,120.67,0,0,1,64,98.11,120.67,120.67,0,0,1,46.29,85.28C29.55,70.51,26,57.73,26,49.61A21.18,21.18,0,0,1,58.61,31.76L64,35.22l5.39-3.46a21.12,21.12,0,0,1,11.4-3.33m0-10A31.08,31.08,0,0,0,64,23.34,31.18,31.18,0,0,0,16,49.61c0,36,48,60,48,60s48-24,48-60A31.18,31.18,0,0,0,80.79,18.43Z"/></svg>
+                                    <svg height="15px" width="19px" data-name="Layer 4" id="Layer_4" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#231f20;}</style></defs><path class="cls-1" d="M80.79,28.43A21.2,21.2,0,0,1,102,49.61c0,8.12-3.52,20.9-20.26,35.67A120.67,120.67,0,0,1,64,98.11,120.67,120.67,0,0,1,46.29,85.28C29.55,70.51,26,57.73,26,49.61A21.18,21.18,0,0,1,58.61,31.76L64,35.22l5.39-3.46a21.12,21.12,0,0,1,11.4-3.33m0-10A31.08,31.08,0,0,0,64,23.34,31.18,31.18,0,0,0,16,49.61c0,36,48,60,48,60s48-24,48-60A31.18,31.18,0,0,0,80.79,18.43Z"/></svg>
                                     <span id="wishlistBtnText">{{ $btnText }}</span>
                                 </button>
                             </div>  
@@ -388,7 +402,7 @@
                             <div class="return-prdct ">
                                 <div class="d-flex">
                                     <span class="rtn_icon">
-                                    <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg width="40px" height="40px" enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/><g id="Layer_2"><g><path d="M256.1,424.2c44.9,0,87.1-17.5,118.9-49.3c29.5-29.5,46.9-68.7,49-110.4c0.2-4.1-3-7.7-7.1-7.9c-4.1-0.2-7.7,3-7.9,7.1    c-1.9,37.9-17.8,73.6-44.7,100.5c-28.9,28.9-67.4,44.9-108.3,44.9s-79.4-15.9-108.3-44.9c-59.7-59.7-59.7-156.9,0-216.6    c50.9-50.9,130.1-59.4,190.3-21.1l-16.9,20.7l48.5-4.9l-4.9-48.5l-17.1,21c-66.3-43.2-154.2-34.1-210.5,22.2    c-65.6,65.6-65.6,172.2,0,237.8C169,406.7,211.2,424.2,256.1,424.2z"/><path d="M335.4,221.4c0-0.1,0-0.2-0.1-0.2c0-0.2-0.1-0.3-0.1-0.5c0-0.1-0.1-0.3-0.1-0.4c0-0.1-0.1-0.2-0.1-0.3    c-0.2-0.5-0.4-0.9-0.7-1.3c0,0,0,0,0,0L302.5,172c-1.4-2.1-3.7-3.3-6.2-3.3h-80.6c-2.5,0-4.8,1.2-6.2,3.3l-31.8,46.6c0,0,0,0,0,0    c-0.3,0.4-0.5,0.9-0.7,1.3c0,0.1-0.1,0.2-0.1,0.3c-0.1,0.1-0.1,0.3-0.1,0.4c0,0.2-0.1,0.3-0.1,0.5c0,0.1,0,0.2-0.1,0.2    c-0.1,0.5-0.2,1-0.2,1.5c0,0,0,0,0,0v112.9c0,4.1,3.4,7.5,7.5,7.5H328c4.1,0,7.5-3.4,7.5-7.5V222.9c0,0,0,0,0,0    C335.5,222.3,335.5,221.8,335.4,221.4z M219.7,183.7h72.6l21.5,31.6H198.1L219.7,183.7z M320.5,328.3H191.5v-97.9h129.1V328.3z"/></g></g></svg></span>
+                                    <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg width="40px" height="40px" enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Layer_1"/><g id="Layer_2"><g><path d="M256.1,424.2c44.9,0,87.1-17.5,118.9-49.3c29.5-29.5,46.9-68.7,49-110.4c0.2-4.1-3-7.7-7.1-7.9c-4.1-0.2-7.7,3-7.9,7.1    c-1.9,37.9-17.8,73.6-44.7,100.5c-28.9,28.9-67.4,44.9-108.3,44.9s-79.4-15.9-108.3-44.9c-59.7-59.7-59.7-156.9,0-216.6    c50.9-50.9,130.1-59.4,190.3-21.1l-16.9,20.7l48.5-4.9l-4.9-48.5l-17.1,21c-66.3-43.2-154.2-34.1-210.5,22.2    c-65.6,65.6-65.6,172.2,0,237.8C169,406.7,211.2,424.2,256.1,424.2z"/><path d="M335.4,221.4c0-0.1,0-0.2-0.1-0.2c0-0.2-0.1-0.3-0.1-0.5c0-0.1-0.1-0.3-0.1-0.4c0-0.1-0.1-0.2-0.1-0.3    c-0.2-0.5-0.4-0.9-0.7-1.3c0,0,0,0,0,0L302.5,172c-1.4-2.1-3.7-3.3-6.2-3.3h-80.6c-2.5,0-4.8,1.2-6.2,3.3l-31.8,46.6c0,0,0,0,0,0    c-0.3,0.4-0.5,0.9-0.7,1.3c0,0.1-0.1,0.2-0.1,0.3c-0.1,0.1-0.1,0.3-0.1,0.4c0,0.2-0.1,0.3-0.1,0.5c0,0.1,0,0.2-0.1,0.2    c-0.1,0.5-0.2,1-0.2,1.5c0,0,0,0,0,0v112.9c0,4.1,3.4,7.5,7.5,7.5H328c4.1,0,7.5-3.4,7.5-7.5V222.9c0,0,0,0,0,0    C335.5,222.3,335.5,221.8,335.4,221.4z M219.7,183.7h72.6l21.5,31.6H198.1L219.7,183.7z M320.5,328.3H191.5v-97.9h129.1V328.3z"/></g></g></svg></span>
                                     <span class="rtn-text">
                                         This product is eligible for return or exchange under our 30-day return or exchange policy. No questions asked.
                                     </span>
@@ -608,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // Update header wishlist badge if exists
-                    const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count');
+                    const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count, .mobile-bottom-nav .badge-count');
                     if (data.wishlist_count > 0) {
                         wishlistBadges.forEach(badge => {
                             badge.textContent = data.wishlist_count;

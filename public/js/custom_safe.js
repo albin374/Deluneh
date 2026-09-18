@@ -197,12 +197,15 @@ $inslide.on('afterChange', function (event, slick, currentSlide) {
 
 
 $(window).scroll(function(){
-    if ($(window).scrollTop() >= 100) {
+    if ($(window).scrollTop() >= 0) {
         $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
     }
     else {
-        $('.add_sticky_mobile_cart').removeClass('mob-stricky-fixed');
+        $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
     }
+});
+$(document).ready(function() {
+    $('.add_sticky_mobile_cart').addClass('mob-stricky-fixed');
 });
 
 $(window).scroll(function(){

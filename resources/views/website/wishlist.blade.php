@@ -100,7 +100,7 @@
                             <span class="offer_price_number" style="font-weight: bold;">₹{{ round($item['price']) }}</span>
                         @endif
                     </p>
-                    <button class="btn btn-outline-dark w-100 remove-from-wishlist mt-2" data-product-id="{{ $item['product_id'] }}" style="font-size: 12px; font-weight: bold; border-radius: 4px;">REMOVE FROM WISHLIST</button>
+                    <button class="btn btn-outline-dark w-100 remove-from-wishlist mt-2" data-product-id="{{ $item['product_id'] }}" style="font-size: 12px; font-weight: bold; border-radius: 4px; padding: 6px 0;">REMOVE</button>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                btnElement.innerText = 'REMOVE FROM WISHLIST';
+                btnElement.innerText = 'REMOVE';
                 btnElement.disabled = false;
             });
         });

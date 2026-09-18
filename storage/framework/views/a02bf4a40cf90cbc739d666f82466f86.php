@@ -327,18 +327,63 @@
                         </div>
                     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
-                    <form action="<?php echo e(route('login')); ?>" method="POST">
+                    <!-- Login Form -->
+                    <form id="login-form" action="<?php echo e(route('login')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <div class="mobile-input-group">
-                            <div class="country-code">
-                                <img src="https://flagcdn.com/w20/in.png" alt="India Flag">
-                                <span>+91</span>
-                            </div>
-                            <input class="form-control" type="text" name="mobile" placeholder="Enter Mobile Number" required autofocus>
+                            <input class="form-control" type="email" name="email" placeholder="Enter Email Address" required autofocus style="padding-left: 15px;">
+                        </div>
+                        <div class="mobile-input-group" style="margin-bottom: 1rem;">
+                            <input class="form-control" type="password" name="password" placeholder="Enter Password" required style="padding-left: 15px;">
+                        </div>
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <a href="javascript:void(0)" onclick="toggleForm('signup')" style="font-size: 13px; color: #42a2a2; font-weight: 600; text-decoration: none;">Don't have an account? Sign up</a>
                         </div>
                         
-                        <button type="submit" class="btn-continue">CONTINUE</button>
+                        <button type="submit" class="btn-continue">LOGIN</button>
                     </form>
+
+                    <!-- Signup Form -->
+                    <form id="signup-form" action="<?php echo e(route('register')); ?>" method="POST" style="display: none;">
+                        <?php echo csrf_field(); ?>
+                        <div class="mobile-input-group">
+                            <input class="form-control" type="text" name="full_name" placeholder="Full Name" required style="padding-left: 15px;" value="<?php echo e(old('full_name')); ?>">
+                        </div>
+                        <div class="mobile-input-group">
+                            <input class="form-control" type="email" name="email" placeholder="Enter Email Address" required style="padding-left: 15px;" value="<?php echo e(old('email')); ?>">
+                        </div>
+                        <div class="mobile-input-group">
+                            <input class="form-control" type="password" name="password" placeholder="Enter Password" required style="padding-left: 15px;">
+                        </div>
+                        <div class="mobile-input-group" style="margin-bottom: 1rem;">
+                            <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm Password" required style="padding-left: 15px;">
+                        </div>
+                        <div style="display:none;"><input type="checkbox" name="terms" checked></div>
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <a href="javascript:void(0)" onclick="toggleForm('login')" style="font-size: 13px; color: #42a2a2; font-weight: 600; text-decoration: none;">Already have an account? Login</a>
+                        </div>
+                        
+                        <button type="submit" class="btn-continue">SIGN UP</button>
+                    </form>
+
+                    <script>
+                        function toggleForm(formName) {
+                            if (formName === 'signup') {
+                                document.getElementById('login-form').style.display = 'none';
+                                document.getElementById('signup-form').style.display = 'block';
+                                document.querySelector('.form-container h2').innerText = 'Signup';
+                            } else {
+                                document.getElementById('login-form').style.display = 'block';
+                                document.getElementById('signup-form').style.display = 'none';
+                                document.querySelector('.form-container h2').innerText = 'Login';
+                            }
+                        }
+
+                        // If there are validation errors from registration, keep the signup form open
+                        <?php if($errors->has('full_name') || $errors->has('password_confirmation') || ($errors->any() && old('full_name'))): ?>
+                            toggleForm('signup');
+                        <?php endif; ?>
+                    </script>
 
                     <div class="divider">
                         <span>OR</span>

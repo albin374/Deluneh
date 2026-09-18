@@ -325,8 +325,14 @@
                                                      <span style="font-size: 11px;"><?php echo e($product->category ? $product->category->name : 'Uncategorized'); ?></span>
                                                 </div>
                                                 <p class="item-price">
-                                                    <span class="offer_price_number">₹<?php echo e($product->price); ?></span>
-                                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($product->old_price): ?>
+                                                    <span class="offer_price_number">₹<?php echo e($product->discount_price ?? $product->price); ?></span>
+                                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($product->discount_price && $product->discount_price < $product->price): ?>
+                                                        <span class="price_number">₹<?php echo e($product->price); ?></span>
+                                                        <?php
+                                                            $discount = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                                        ?>
+                                                        <span class="offer"><?php echo e($discount); ?>% OFF</span>
+                                                    <?php elseif($product->old_price): ?>
                                                         <span class="price_number">₹<?php echo e($product->old_price); ?></span>
                                                         <?php
                                                             $discount = round((($product->old_price - $product->price) / $product->old_price) * 100);
@@ -368,8 +374,14 @@
                                                     </div>
                                                 </div>
                                                 <p class="item-price">
-                                                    <span class="offer_price_number">₹<?php echo e($product->price); ?></span>
-                                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($product->old_price): ?>
+                                                    <span class="offer_price_number">₹<?php echo e($product->discount_price ?? $product->price); ?></span>
+                                                    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($product->discount_price && $product->discount_price < $product->price): ?>
+                                                        <span class="price_number">₹<?php echo e($product->price); ?></span>
+                                                        <?php
+                                                            $discount = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                                        ?>
+                                                        <span class="offer"><?php echo e($discount); ?>% OFF</span>
+                                                    <?php elseif($product->old_price): ?>
                                                         <span class="price_number">₹<?php echo e($product->old_price); ?></span>
                                                         <?php
                                                             $discount = round((($product->old_price - $product->price) / $product->old_price) * 100);

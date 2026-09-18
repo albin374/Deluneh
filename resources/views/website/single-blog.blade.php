@@ -6,6 +6,12 @@
         margin-top: 80px !important;
         min-height: 50vh;
     }
+    .navigation {
+        display: none;
+    }
+    .highlated-sale.top-highlated.d-lg-block.d-none{
+       display:none!important; 
+    }
 </style>
 
 <main class="main--wrapper">

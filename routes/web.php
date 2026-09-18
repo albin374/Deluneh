@@ -65,6 +65,9 @@ Route::post('/remove-from-cart', [HomeController::class, 'removeFromCart'])->nam
 Route::post('/place-order', [HomeController::class, 'placeOrder'])->name('order.place');
 
 Route::get('/track-order', [HomeController::class, 'trackOrder'])->name('track.order');
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
+Route::get('/profile/saved-address', [HomeController::class, 'savedAddress'])->name('profile.saved-address');
+Route::post('/profile/saved-address', [HomeController::class, 'saveAddress'])->name('profile.save-address');
 
 Route::get('/blog', function() {
     $blogs = \App\Models\Blog::orderBy('date', 'desc')->get();
@@ -75,5 +78,13 @@ Route::get('/blog/{id}', function($id) {
     $blog = \App\Models\Blog::findOrFail($id);
     return view('website.single-blog', compact('blog'));
 })->name('blog.show');
+
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact')->middleware('auth');
+Route::post('/contact-us', [HomeController::class, 'submitContact'])->name('contact.submit')->middleware('auth');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+
+Route::get('/gift-vouchers', function() {
+    return view('website.gift-vouchers');
+})->name('gift-vouchers');
 
 Route::get('/{path}', [CategoryController::class, 'show'])->where('path', '.*');
