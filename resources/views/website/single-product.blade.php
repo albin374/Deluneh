@@ -122,6 +122,9 @@
     .main--wrapper {
         margin-top: 49px !important;
     }
+    .mobile-bottom-nav {
+        display: none !important;
+    }
 }
 </style>
 <div class="breadcrumbs_nav hide-mobile">

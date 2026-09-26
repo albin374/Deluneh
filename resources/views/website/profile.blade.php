@@ -10,6 +10,17 @@ body {
 .highlated-sale.top-highlated.d-lg-block.d-none{
    display:none!important; 
 }
+#home-none {
+    display: none !important;
+}
+.main--wrapper {
+    margin-top: 97px !important;
+}
+@media screen and (max-width: 992px) {
+    .main--wrapper {
+        margin-top: 49px !important;
+    }
+}
 .profile-banner {
     width: 100%;
     max-height: 350px; 

@@ -122,6 +122,9 @@
     .main--wrapper {
         margin-top: 49px !important;
     }
+    .mobile-bottom-nav {
+        display: none !important;
+    }
 }
 </style>
 <div class="breadcrumbs_nav hide-mobile">
@@ -623,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     
                     // Update header wishlist badge if exists
-                    const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count');
+                    const wishlistBadges = document.querySelectorAll('.wishlist-section-container .badge-count, .profile-cart-icon a[href="/wishlist"] .badge-count, .mobile-bottom-nav .badge-count');
                     if (data.wishlist_count > 0) {
                         wishlistBadges.forEach(badge => {
                             badge.textContent = data.wishlist_count;
