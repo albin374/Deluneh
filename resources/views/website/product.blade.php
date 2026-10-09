@@ -4,9 +4,7 @@
 body {
     overflow-x: visible !important;
 }
-.navigation {
-    display: none;
-}
+
 .highlated-sale.top-highlated.d-lg-block.d-none{
    display:none!important; 
 }
@@ -59,14 +57,14 @@ body {
     #home-none {
         display: none !important;
     }
-        .main--wrapper {
+    .special-page {
         margin-top: 69px !important;
     }
     .quick-filter-wrapper[data-v-6cee8452] {
         top: 80px !important;
     }
 }
-.main--wrapper {
+.special-page {
         margin-top: 97px !important;
     }
 
@@ -841,7 +839,7 @@ body {
     <div id="categoryList">
         @if(isset($currentCategory) && $currentCategory->children->isNotEmpty())
             @foreach($currentCategory->children as $childCat)
-                <label class="category-item" style="color: #0f7c6b; font-weight: bold;">
+                <label class="category-item" style="color: #000; font-weight: bold;">
                     <span>
                         <input type="checkbox" class="category-filter-checkbox" value="{{ $childCat->name }}"> 
                         {{ $childCat->name }}
@@ -876,7 +874,7 @@ body {
             @endphp
             @if(count($availableCategories) > 0)
                 @foreach($availableCategories as $cName)
-                    <label class="category-item" style="color: #0f7c6b; font-weight: bold;">
+                    <label class="category-item" style="color: #000; font-weight: bold;">
                         <span>
                             <input type="checkbox" class="category-filter-checkbox" value="{{ $cName }}"> 
                             {{ $cName }}
@@ -889,7 +887,7 @@ body {
             @if(count($availableGenders) > 0)
                 <div class="filter-title mt-4">GENDER</div>
                 @foreach($availableGenders as $gKey => $gLabel)
-                    <label class="category-item" style="color: #0f7c6b; font-weight: bold;">
+                    <label class="category-item" style="color: #000; font-weight: bold;">
                         <span>
                             <input type="checkbox" class="gender-filter-checkbox" value="{{ $gKey }}"> 
                             {{ $gLabel }}

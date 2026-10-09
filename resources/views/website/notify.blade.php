@@ -4,15 +4,16 @@
 <style>
     .notify-container {
         max-width: 900px;
-        margin: 50px auto;
-        padding: 0 15px;
+        margin: 0 auto 50px auto;
+        padding: 170px 15px 0 15px !important;
+        min-height: 70vh;
         font-family: 'Inter', sans-serif; /* Fallback */
     }
     .notify-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
     }
     .notify-header h2 {
         font-weight: 700;

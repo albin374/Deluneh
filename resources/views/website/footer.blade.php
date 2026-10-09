@@ -52,12 +52,7 @@
                                 </div>
                             </section>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="box" style="background-color: #e6e7e8; padding-top: 40px; padding-bottom: 20px;">
+                        <div class="box" style="background-color: #e6e7e8; padding-top: 40px; padding-bottom: 20px;">
                                 <footer style="font-family: inherit;">
                                     <div class="container pb-4">
                                         <div class="row pad-10">
@@ -194,6 +189,10 @@
                                     </div>
                                 </footer>
                             </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

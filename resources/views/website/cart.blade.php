@@ -200,6 +200,7 @@
         gap: 10px;
         padding: 10px 15px;
         border-top: 1px solid #f2f2f2;
+        margin-top: 25px;
     }
 
     .tss-footer-btn {
@@ -519,6 +520,10 @@
             font-size: 12px !important;
         }
     }
+
+    @media (min-width: 992px) {
+        /* Removed custom padding, using Bootstrap grid instead */
+    }
 </style>
 
 <div class="whole_container mtop_40">
@@ -529,8 +534,8 @@
                     <span style="color: #117a7a;">MY BAG</span> <span style="letter-spacing: 2px;">---------</span> ADDRESS <span style="letter-spacing: 2px;">---------</span> PAYMENT
                 </div>
                 
-                <div class="row">
-                    <div class="col-md-9">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-12">
                         <div class="left_cart-side">
 
                             <div class="member-savings-banner">
@@ -612,7 +617,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-lg-4 col-md-12">
                         <div class="right_cart-side">
 
                             <div class="price-details-section">
@@ -637,35 +642,7 @@
                     </div>
                 </div>
                 
-                <!-- YOU MAY ALSO LIKE SECTION -->
-                <div class="row mt-4 mb-5">
-                    <div class="col-md-9">
-                        <div class="cart-related-items" style="background: #fff; border: 1px solid #e6e7e8; border-radius: 4px; padding: 15px;">
-                            <h5 style="font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 15px; text-transform: uppercase;">You May Also Like</h5>
-                            <div class="row">
-                                @if(isset($relatedProducts))
-                                    @foreach($relatedProducts as $relProduct)
-                                    <div class="col-md-4 mb-3">
-                                        <div style="border: 1px solid #e6e7e8; border-radius: 4px; overflow: hidden; text-align: center;">
-                                            <a href="{{ route(\App\Constants\RouteNames::SINGLE_PRODUCT_INDEX, ['slug' => $relProduct->slug]) }}">
-                                                <img src="{{ asset('storage/' . ($relProduct->images && count($relProduct->images) > 0 ? $relProduct->images[0] : '')) }}" alt="{{ $relProduct->name }}" style="width: 100%; height: 200px; object-fit: cover;">
-                                                <div style="padding: 10px; font-size: 12px; text-align: left;">
-                                                    <h6 style="font-size: 12px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $relProduct->name }}</h6>
-                                                    <p style="margin: 0; color: #8c8d8f;">{{ $relProduct->category ? $relProduct->category->name : '' }}</p>
-                                                    <p style="margin: 5px 0 0 0; color: #e02b2b; font-weight: 700;">₹ {{ $relProduct->price }}</p>
-                                                </div>
-                                            </a>
-                                            <button style="width: 100%; padding: 10px; border: none; border-top: 1px solid #e02b2b; background: transparent; color: #e02b2b; font-weight: 700; font-size: 12px;" onclick="location.href='{{ route(\App\Constants\RouteNames::SINGLE_PRODUCT_INDEX, ['slug' => $relProduct->slug]) }}'">ADD NOW</button>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END YOU MAY ALSO LIKE -->
-                
+                <!-- YOU MAY ALSO LIKE SECTION REMOVED AS REQUESTED -->
             </div>
         </div>
 </div>

@@ -205,11 +205,17 @@
                         </div>
                     </div>
                     
-                    <div class="product-filter d-flex flex-wrap justify-content-center mb-4 gap-2" id="productFilter-<?php echo e($section->id); ?>" style="padding-bottom: 5px;">
-                        <a href="javascript:void(0)" class="category-pallet active rounded-lg" data-target="all-<?php echo e($section->id); ?>" data-section="<?php echo e($section->id); ?>">All</a>
-                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                            <a href="javascript:void(0)" class="category-pallet rounded-lg" data-target="category-<?php echo e($category->id); ?>-<?php echo e($section->id); ?>" data-section="<?php echo e($section->id); ?>"><?php echo e($category->name); ?></a>
-                        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                    <!-- STICKY CATEGORY NAV -->
+                    <div class="product-filter-sticky-wrapper" style="position: -webkit-sticky; position: sticky; top: 0px; z-index: 9999; background: #fff; padding: 10px 0; border-bottom: 1px solid #eee; margin-bottom: 15px;">
+                        <div class="product-filter d-flex flex-nowrap gap-2" id="productFilter-<?php echo e($section->id); ?>" style="overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; padding: 0 10px;">
+                            <style>
+                                #productFilter-<?php echo e($section->id); ?>::-webkit-scrollbar { display: none; }
+                            </style>
+                            <a href="javascript:void(0)" class="category-pallet active rounded-lg flex-shrink-0" data-target="all-<?php echo e($section->id); ?>" data-section="<?php echo e($section->id); ?>">All</a>
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                                <a href="javascript:void(0)" class="category-pallet rounded-lg flex-shrink-0" data-target="category-<?php echo e($category->id); ?>-<?php echo e($section->id); ?>" data-section="<?php echo e($section->id); ?>"><?php echo e($category->name); ?></a>
+                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
+                        </div>
                     </div>
                     
                     <div class="filter-content-wrapper">

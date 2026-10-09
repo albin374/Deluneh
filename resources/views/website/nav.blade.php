@@ -1733,16 +1733,6 @@
 
         <nav class="navigation">
 
-            <div class="logo">
-                <div class="menu_sliding_icon">
-                    <img class="img-size" src="{{ asset('images/burger-list-menu.svg') }}" alt="">
-                </div>
-                <a href="#"><span class="logo-font"></span></a>
-            </div>
-
-            <label for="drawer-toggle" class="hamburger-btn">
-                <img class="img-size" src="{{ asset('images/burger-list-menu.svg') }}" alt="">
-            </label>
 
             <!-- leftsidebar -->
 

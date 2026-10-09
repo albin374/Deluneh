@@ -9865,8 +9865,9 @@ body:not(:has(:target)) #all {
 
 /* Padding to prevent content from hiding behind fixed nav on mobile */
 @media (max-width: 767px) {
-    body {
+    .accordion-wrapper {
         padding-bottom: 65px;
+        background-color: #e6e7e8;
     }
 }
 
