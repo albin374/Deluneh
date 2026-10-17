@@ -1,8 +1,8 @@
-        <div class="accordion-wrapper">
+        <div class="accordion-wrapper footer-accordion-wrapper">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item left_side-bar">
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button accordian-header-text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <button class="accordion-button collapsed accordian-header-text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Know more about Delunh
                         </button>
                     </h2>

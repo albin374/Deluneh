@@ -9869,6 +9869,67 @@ body:not(:has(:target)) #all {
         padding-bottom: 65px;
         background-color: #e6e7e8;
     }
+
+    .footer-accordion-wrapper {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        background-color: transparent;
+    }
+
+    .footer-accordion-wrapper:has(.accordion-collapse.show) {
+        padding-bottom: 65px;
+        background-color: #e6e7e8;
+    }
+}
+
+/* Sticky footer / remove blank space below "Know more about Delunh" for Cart and Wishlist pages */
+.main--wrapper:has(.cart_container),
+.main--wrapper:has(.cart-empty-container),
+.main--wrapper:has(.wishlist-empty-container),
+.main--wrapper:has(.wishlist-container),
+.main--wrapper:has(.wishlist-card) {
+    margin-top: 120px !important;
+    min-height: calc(100vh - 120px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.main--wrapper:has(.cart_container) > .whole_container,
+.main--wrapper:has(.cart-empty-container) > .cart-empty-container,
+.main--wrapper:has(.wishlist-empty-container) > .wishlist-empty-container,
+.main--wrapper:has(.wishlist-container) > .wishlist-container,
+.main--wrapper:has(.wishlist-card) > .container {
+    flex: 1 0 auto;
+    min-height: auto;
+}
+
+.main--wrapper:has(.cart_container) > .footer-accordion-wrapper,
+.main--wrapper:has(.cart-empty-container) > .footer-accordion-wrapper,
+.main--wrapper:has(.wishlist-empty-container) > .footer-accordion-wrapper,
+.main--wrapper:has(.wishlist-container) > .footer-accordion-wrapper,
+.main--wrapper:has(.wishlist-card) > .footer-accordion-wrapper {
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .main--wrapper:has(.cart_container),
+    .main--wrapper:has(.cart-empty-container),
+    .main--wrapper:has(.wishlist-empty-container),
+    .main--wrapper:has(.wishlist-container),
+    .main--wrapper:has(.wishlist-card) {
+        margin-top: 113px !important;
+        min-height: calc(100vh - 113px) !important;
+    }
+
+    .main--wrapper:has(.cart_container) > .footer-accordion-wrapper,
+    .main--wrapper:has(.cart-empty-container) > .footer-accordion-wrapper,
+    .main--wrapper:has(.wishlist-empty-container) > .footer-accordion-wrapper,
+    .main--wrapper:has(.wishlist-container) > .footer-accordion-wrapper,
+    .main--wrapper:has(.wishlist-card) > .footer-accordion-wrapper {
+        margin-bottom: 60px !important;
+    }
 }
 
 /* Horizontal scroll for category menu bar */

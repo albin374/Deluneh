@@ -80,7 +80,7 @@
     </div>
 </div>
 @else
-<div class="container my-5" style="min-height: 50vh; max-width: 1200px !important; padding: 0 30px !important;">
+<div class="container my-5 wishlist-container" style="min-height: 50vh; max-width: 1200px !important; padding: 0 30px !important;">
     <h2 class="mb-4" style="font-weight: 900; color: #1a2024; font-size: 24px;">My Wishlist <span style="font-size: 18px; color: #737373;">({{ count($wishlistItems) }} items)</span></h2>
     <div class="row">
         @foreach($wishlistItems as $item)
