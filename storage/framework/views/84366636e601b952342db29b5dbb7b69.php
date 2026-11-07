@@ -349,21 +349,39 @@ body {
     .sidebar{
     width:300px;
     background:#fff;
-    padding:20px;
-    height: calc(100vh - 97px);
-    overflow-y:auto;
+    padding:20px 15px 40px 20px;
+    height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    overscroll-behavior: contain !important;
+    overscroll-behavior-y: contain !important;
+    -ms-scroll-chaining: none !important;
     border-right:1px solid #eee;
     position: sticky;
     top: 97px;
+    scrollbar-width: thin !important;
+    scrollbar-color: #c1c1c1 #f5f5f5 !important;
 }
 
 .sidebar::-webkit-scrollbar {
-    width: 5px;
+    width: 6px !important;
+    display: block !important;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f5f5f5 !important;
+    border-radius: 10px;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background: #eee;
+    background: #c1c1c1 !important;
     border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #888888 !important;
 }
 
 @media (min-width: 992px) {
@@ -1340,6 +1358,30 @@ document.addEventListener("DOMContentLoaded", function() {
                 .catch(error => console.error('Error:', error));
             });
         });
+
+        // Isolate sidebar scrolling: prevent mouse wheel over sidebar from scrolling the main page
+        const sidebarEl = document.querySelector('.sidebar');
+        if (sidebarEl) {
+            sidebarEl.addEventListener('wheel', function (e) {
+                const delta = e.deltaY;
+                const contentHeight = sidebarEl.scrollHeight;
+                const visibleHeight = sidebarEl.clientHeight;
+
+                if (contentHeight > visibleHeight) {
+                    const atTop = sidebarEl.scrollTop <= 0;
+                    const atBottom = Math.ceil(sidebarEl.scrollTop + visibleHeight) >= contentHeight;
+
+                    if (delta < 0 && !atTop) {
+                        sidebarEl.scrollTop += delta;
+                    } else if (delta > 0 && !atBottom) {
+                        sidebarEl.scrollTop += delta;
+                    }
+                }
+                // Always prevent default when mouse wheel is over sidebar so page never scrolls
+                e.preventDefault();
+                e.stopPropagation();
+            }, { passive: false });
+        }
     });
 </script>
 

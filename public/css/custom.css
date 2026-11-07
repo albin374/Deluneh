@@ -7334,8 +7334,55 @@ button:focus {
   font-size: 16px;
 }
 
+/* Default: Hide scrollbars across the site */
 ::-webkit-scrollbar {
   display: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+/* Page vertical scrollbar for Home page only */
+html.is-home-page {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f5f5f5;
+}
+
+html.is-home-page::-webkit-scrollbar,
+body.is-home-page::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  display: block;
+}
+
+html.is-home-page::-webkit-scrollbar-track,
+body.is-home-page::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+html.is-home-page::-webkit-scrollbar-thumb,
+body.is-home-page::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+  border: 2px solid #f5f5f5;
+  transition: background 0.3s ease;
+}
+
+html.is-home-page::-webkit-scrollbar-thumb:hover,
+body.is-home-page::-webkit-scrollbar-thumb:hover {
+  background: #888888;
+}
+
+/* Dynamic highlight on Home page when user is scrolling */
+html.is-home-page.is-scrolling {
+  scrollbar-color: #e02b2b #f5f5f5;
+}
+
+html.is-home-page.is-scrolling::-webkit-scrollbar-thumb,
+body.is-home-page.is-scrolling::-webkit-scrollbar-thumb {
+  background: #e02b2b;
+  border-color: #f5f5f5;
 }
 
 
@@ -9958,4 +10005,73 @@ body:not(:has(:target)) #all {
 
 .menu-bar.horizontal-scroll a.active {
     color: #e02b2b; /* Active category color */
+}
+
+/* Card size reduction for Grid 2 banner cards (above TRENDING NOW) */
+.compact-grid2-carousel,
+.categories-wrap:has(.image-carousel-31) .container-wrapper,
+.image-carousel-31 {
+    max-width: 960px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.compact-grid2-carousel .swiper-slide,
+.compact-grid2-carousel .swiper-slide a,
+.compact-grid2-carousel .swiper-slide img,
+.image-carousel-31 .swiper-slide,
+.image-carousel-31 .swiper-slide a,
+.image-carousel-31 .swiper-slide img {
+    max-height: 260px !important;
+    object-fit: cover !important;
+}
+
+@media (max-width: 767px) {
+    .compact-grid2-carousel .swiper-slide,
+    .compact-grid2-carousel .swiper-slide a,
+    .compact-grid2-carousel .swiper-slide img,
+    .image-carousel-31 .swiper-slide,
+    .image-carousel-31 .swiper-slide a,
+    .image-carousel-31 .swiper-slide img {
+        max-height: 200px !important;
+    }
+}
+
+/* Product page side filter bar independent scrollbar & isolation */
+.sidebar {
+    width: 300px;
+    background: #fff;
+    padding: 20px 15px 40px 20px;
+    height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
+    overscroll-behavior-y: contain !important;
+    -ms-scroll-chaining: none !important;
+    border-right: 1px solid #eee;
+    position: sticky;
+    top: 97px;
+    scrollbar-width: thin !important;
+    scrollbar-color: #c1c1c1 #f5f5f5 !important;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px !important;
+    display: block !important;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f5f5f5 !important;
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #c1c1c1 !important;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #888888 !important;
 }

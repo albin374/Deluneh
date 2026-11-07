@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="{{ (request()->routeIs('website.home') || request()->is('/')) ? 'is-home-page' : '' }}">
 
 <head>
     <title>Online Fashion Shopping for Men, Women, Accessories - DeLuneh.com</title>

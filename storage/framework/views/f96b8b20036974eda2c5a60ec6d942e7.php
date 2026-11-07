@@ -1,4 +1,4 @@
-<body class="font">
+<body class="font <?php echo e((request()->routeIs('website.home') || request()->is('/')) ? 'is-home-page' : ''); ?>">
     <!-- <div class="modal fade notify_modal" id="notify-addss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:none!important;">
         <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content">
@@ -1394,11 +1394,9 @@
                     class="header-nav d-flex d-none d-lg-flex font align-items-center justify-content-between flex-nowrap w-100 mt-10">
                     <div class="d-flex align-items-center gap-40 flex-grow-1">
                         <div class="header-nav-middle d-flex align-items-center">
-                            <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!request()->is('/')): ?>
                             <div class="menu_sliding_icon me-3 d-lg-block" style="cursor: pointer;">
                                 <img class="img-size" src="<?php echo e(asset('images/burger-list-menu.svg')); ?>" alt="" style="width: 24px;">
                             </div>
-                            <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             <?php
                                 $validGenders = ['men', 'woman', 'kids'];
                                 $segment = request()->segment(1);

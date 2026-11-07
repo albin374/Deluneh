@@ -1445,5 +1445,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// Dynamic scrollbar indicator when user scrolls (Home page only)
+(function () {
+  let scrollTimeout;
+  window.addEventListener('scroll', function () {
+    if (!document.documentElement.classList.contains('is-home-page') && !document.body.classList.contains('is-home-page')) {
+      return;
+    }
+    document.documentElement.classList.add('is-scrolling');
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function () {
+      document.documentElement.classList.remove('is-scrolling');
+    }, 1200);
+  }, { passive: true });
+})();
+
 
 

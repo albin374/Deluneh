@@ -464,7 +464,9 @@
                             576: { slidesPerView: 3, spaceBetween: 15 },
                             768: { slidesPerView: 4, spaceBetween: 20 },
                         ";
-                        if ($section->layout_style == 'grid_2') {
+                        $isGrid2Section = ($section->layout_style == 'grid_2' || $section->id == 31);
+
+                        if ($isGrid2Section) {
                             $slidesPerView = 2;
                             $breakpoints = "
                                 320: { slidesPerView: 1, spaceBetween: 10 },
@@ -497,12 +499,12 @@
                             }
                         }
                     @endphp
-                    <div class="swiper image-carousel-{{ $section->id }}">
+                    <div class="swiper image-carousel-{{ $section->id }} {{ $isGrid2Section ? 'compact-grid2-carousel' : '' }}" @if($isGrid2Section) style="max-width: 960px; margin: 0 auto;" @endif>
                         <div class="swiper-wrapper pb-8">
                             @foreach($carouselItems as $item)
-                            <div class="swiper-slide">
-                                <a href="#" class="block w-full overflow-hidden rounded-lg position-relative">
-                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $section->name }}" class="w-full rounded-lg transition-transform duration-300 ease-in-out hover:scale-110" style="{{ $section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: ' . ($section->layout_style == 'grid_2' ? '16/9' : '3/4') . '; object-fit: cover;' }}">
+                            <div class="swiper-slide" @if($isGrid2Section) style="max-height: 260px;" @endif>
+                                <a href="#" class="block w-full overflow-hidden rounded-lg position-relative" @if($isGrid2Section) style="max-height: 260px;" @endif>
+                                    <img src="{{ asset('storage/' . $item['image']) }}" alt="{{ $section->name }}" class="w-full rounded-lg transition-transform duration-300 ease-in-out hover:scale-110" style="@if($isGrid2Section) max-height: 260px; width: 100%; object-fit: cover; @else {{ $section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: ' . ($section->layout_style == 'grid_2' ? '16/9' : '3/4') . '; object-fit: cover;' }} @endif">
                                     @if(!empty($item['title']) || !empty($item['subtitle']))
                                     <div class="category-content" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px;">
                                         <div class="category-name fw-700 text-center">
@@ -813,12 +815,12 @@
                         @break
 
                     @case('grid_2')
-                        <div class="latest-collection-row">
+                        <div class="latest-collection-row" style="max-width: 960px; margin: 0 auto;">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 @foreach($section->images as $img)
-                                <div class="flex justify-center items-center w-full hover:brightness-[.95] transition-all duration-300 ease-out">
-                                    <a href="#" class="block w-full">
-                                        <img src="{{ asset('storage/' . $img) }}" alt="{{ $section->name }}" class="w-full rounded-lg" style="{{ $section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: 16/9; object-fit: cover;' }}">
+                                <div class="flex justify-center items-center w-full hover:brightness-[.95] transition-all duration-300 ease-out" style="max-height: 260px;">
+                                    <a href="#" class="block w-full" style="max-height: 260px;">
+                                        <img src="{{ asset('storage/' . $img) }}" alt="{{ $section->name }}" class="w-full rounded-lg" style="max-height: 260px; width: 100%; object-fit: cover;">
                                     </a>
                                 </div>
                                 @endforeach

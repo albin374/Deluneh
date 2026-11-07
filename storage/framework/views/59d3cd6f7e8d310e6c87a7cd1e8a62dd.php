@@ -465,7 +465,9 @@
                             576: { slidesPerView: 3, spaceBetween: 15 },
                             768: { slidesPerView: 4, spaceBetween: 20 },
                         ";
-                        if ($section->layout_style == 'grid_2') {
+                        $isGrid2Section = ($section->layout_style == 'grid_2' || $section->id == 31);
+
+                        if ($isGrid2Section) {
                             $slidesPerView = 2;
                             $breakpoints = "
                                 320: { slidesPerView: 1, spaceBetween: 10 },
@@ -498,12 +500,12 @@
                             }
                         }
                     ?>
-                    <div class="swiper image-carousel-<?php echo e($section->id); ?>">
+                    <div class="swiper image-carousel-<?php echo e($section->id); ?> <?php echo e($isGrid2Section ? 'compact-grid2-carousel' : ''); ?>" <?php if($isGrid2Section): ?> style="max-width: 960px; margin: 0 auto;" <?php endif; ?>>
                         <div class="swiper-wrapper pb-8">
                             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $carouselItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                            <div class="swiper-slide">
-                                <a href="#" class="block w-full overflow-hidden rounded-lg position-relative">
-                                    <img src="<?php echo e(asset('storage/' . $item['image'])); ?>" alt="<?php echo e($section->name); ?>" class="w-full rounded-lg transition-transform duration-300 ease-in-out hover:scale-110" style="<?php echo e($section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: ' . ($section->layout_style == 'grid_2' ? '16/9' : '3/4') . '; object-fit: cover;'); ?>">
+                            <div class="swiper-slide" <?php if($isGrid2Section): ?> style="max-height: 260px;" <?php endif; ?>>
+                                <a href="#" class="block w-full overflow-hidden rounded-lg position-relative" <?php if($isGrid2Section): ?> style="max-height: 260px;" <?php endif; ?>>
+                                    <img src="<?php echo e(asset('storage/' . $item['image'])); ?>" alt="<?php echo e($section->name); ?>" class="w-full rounded-lg transition-transform duration-300 ease-in-out hover:scale-110" style="<?php if($isGrid2Section): ?> max-height: 260px; width: 100%; object-fit: cover; <?php else: ?> <?php echo e($section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: ' . ($section->layout_style == 'grid_2' ? '16/9' : '3/4') . '; object-fit: cover;'); ?> <?php endif; ?>">
                                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(!empty($item['title']) || !empty($item['subtitle'])): ?>
                                     <div class="category-content" style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px;">
                                         <div class="category-name fw-700 text-center">
@@ -815,12 +817,12 @@
                         <?php break; ?>
 
                     <?php case ('grid_2'): ?>
-                        <div class="latest-collection-row">
+                        <div class="latest-collection-row" style="max-width: 960px; margin: 0 auto;">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = $section->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
-                                <div class="flex justify-center items-center w-full hover:brightness-[.95] transition-all duration-300 ease-out">
-                                    <a href="#" class="block w-full">
-                                        <img src="<?php echo e(asset('storage/' . $img)); ?>" alt="<?php echo e($section->name); ?>" class="w-full rounded-lg" style="<?php echo e($section->zoom_out_image ? 'object-fit: contain;' : 'aspect-ratio: 16/9; object-fit: cover;'); ?>">
+                                <div class="flex justify-center items-center w-full hover:brightness-[.95] transition-all duration-300 ease-out" style="max-height: 260px;">
+                                    <a href="#" class="block w-full" style="max-height: 260px;">
+                                        <img src="<?php echo e(asset('storage/' . $img)); ?>" alt="<?php echo e($section->name); ?>" class="w-full rounded-lg" style="max-height: 260px; width: 100%; object-fit: cover;">
                                     </a>
                                 </div>
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
